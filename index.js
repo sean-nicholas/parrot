@@ -82,7 +82,8 @@ bot.on('message', function (msg) {
   }).then(response => {
     return response._text;
   }).then(text => {
-    bot.sendMessage(msg.chat.id, text, {
+    const message = msg.from.first_name + ': ' + text;
+    bot.sendMessage(msg.chat.id, message, {
       reply_to_message_id: msg.message_id
     });
   }).catch(err => {
