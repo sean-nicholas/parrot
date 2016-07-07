@@ -1,5 +1,8 @@
 {
   "telegramToken": "XXX",
-  "witToken": "XXX",
+  "witToken": {
+    "EN": "XXX",
+    "DE": "XXX"
+  },
   "ffmpegPath": "XXX"
 }
