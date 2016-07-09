@@ -68,7 +68,6 @@ const speechToText = (file, language) => {
 // Setup polling way
 const bot = new TelegramBot(telegramToken, { polling: true });
 
-var waitForResponse = false;
 var setLanguage = function(msg, lngText){
   const replyMarkup = {reply_markup: {hide_keyboard: true}};
   const language = _.upperCase(lngText);
@@ -110,8 +109,14 @@ chatSettings.load().then(() => {
     }).then(response => {
       return response._text;
     }).then(text => {
-      if(text === null){
-        const transcribingErrorMessage = 'ArrArr ' + msg.from.first_name + ', das kann doch keiner verstehen!'
+      if(text === null || text === ""){
+        var transcribingErrorMessage = 'ArrArr ' + msg.from.first_name + ', ';
+        const language = chatSettings.get(msg.chat.id).language;
+        if(language === 'DE'){
+          transcribingErrorMessage += 'das kann doch keiner verstehen!'
+        }else if(language === 'EN'){
+          transcribingErrorMessage += 'nobody can understand this!'
+        }
         bot.sendMessage(msg.chat.id, transcribingErrorMessage, {
           reply_to_message_id: msg.message_id
         });
@@ -134,15 +139,15 @@ chatSettings.load().then(() => {
     }else{
       const keyboardOpts = {reply_markup:{keyboard: [['DE'], ['EN']], one_time_keyboard: true, selective: true}}
       bot.sendMessage(msg.chat.id, 'Which language?', keyboardOpts).then(() => {
-      waitForResponse = true;
+      chatSettings.set(msg.chat.id, { 'waitForLanguageResponse': true });
     });
   }
   bot.onText(/(DE)|(EN)/, function(msg, match){
-      if(!waitForResponse){
+      if(!chatSettings.get(msg.chat.id).waitForLanguageResponse){
         return;
       }
       setLanguage(msg, match[0]);
-      waitForResponse = false;
+      chatSettings.set(msg.chat.id, { 'waitForLanguageResponse': false });
     })
   });
 });
