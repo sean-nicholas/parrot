@@ -14,7 +14,7 @@ const ffmpeg = require('./lib/ffmpeg');
 const speechToText = require('./lib/speechToText');
 const commands = require('./lib/commands');
 
-// Setup polling way
+// Setup TelegramBot
 const bot = new TelegramBot(telegramToken, { polling: true });
 commands.commandEvent(bot, config.botName);
 commands.setLanguage(bot, chatSettings, witToken);
