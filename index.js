@@ -24,7 +24,6 @@ commands.help(bot);
 
 chatSettings.load().then(() => {
   bot.on('message', function (msg) {
-    console.log(msg);
     if (!msg.voice) {
       return;
     }
