@@ -29,6 +29,8 @@ chatSettings.load().then(() => {
       return;
     }
 
+    bot.sendChatAction(msg.chat.id, 'typing');
+
     bot.downloadFile(msg.voice.file_id, __dirname + '/tmp').then(filePath => {
       const mp3Path = filePath + '.mp3'
       return ffmpeg(ffmpegPath, ['-i ' + filePath, '-acodec libmp3lame', mp3Path]).then((stdout) => {
