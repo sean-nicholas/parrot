@@ -18,6 +18,9 @@ const commands = require('./lib/commands');
 const bot = new TelegramBot(telegramToken, { polling: true });
 commands.commandEvent(bot, config.botName);
 commands.setLanguage(bot, chatSettings, witToken);
+commands.start(bot);
+commands.stop(bot);
+commands.help(bot);
 
 chatSettings.load().then(() => {
   bot.on('message', function (msg) {
