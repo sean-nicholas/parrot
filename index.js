@@ -54,13 +54,13 @@ chatSettings.load().then(() => {
           transcribingErrorMessage += 'nobody can understand this!'
         }
         bot.sendMessage(msg.chat.id, transcribingErrorMessage, {
-          reply_to_message_id: msg.message_id
+          // reply_to_message_id: msg.message_id
         });
         return;
       }
       const message = msg.from.first_name + ': ' + text;
       bot.sendMessage(msg.chat.id, message, {
-        reply_to_message_id: msg.message_id
+        // reply_to_message_id: msg.message_id
       });
     }).catch(err => {
       console.log('ERROR', err);
