@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --harmony_default_parameters index.js"
+    "start": "node --harmony_default_parameters index.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +16,8 @@
     "fs-promise": "^0.5.0",
     "lodash": "^4.13.1",
     "mz": "^2.4.0",
-    "node-telegram-bot-api": "^0.23.3"
-  }
+    "node-telegram-bot-api": "^0.23.3",
+    "snyk": "^1.192.3"
+  },
+  "snyk": true
 }
